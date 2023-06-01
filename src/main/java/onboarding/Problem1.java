@@ -3,6 +3,10 @@ package onboarding;
 import java.util.List;
 
 class Problem1 {
+    static final int exception = -1;
+    static final int pobiWin = 1;
+    static final int crongWin = 2;
+    static final int draw = 0;
 
     public static int solution(List<Integer> pobi, List<Integer> crong) {
         int answer = Integer.MAX_VALUE;
@@ -13,14 +17,21 @@ class Problem1 {
         int crongPage2 = crong.get(1);
 
         // 예외 사항 검사
-        if (!checkPage(pobiPage1, pobiPage2) || !checkPage(crongPage1, crongPage2)) return -1;
+        if (!checkPage(pobiPage1, pobiPage2)
+                || !checkPage(crongPage1, crongPage2)) return exception;
 
-        int pobiScore = Math.max(getPagePlusValue(pobiPage1, pobiPage2), getPageMultiValue(pobiPage1, pobiPage2));
-        int crongScore = Math.max(getPagePlusValue(crongPage1, crongPage2), getPageMultiValue(crongPage1, crongPage2));
+        int pobiScore = Math.max(
+                getPagePlusValue(pobiPage1, pobiPage2),
+                getPageMultiValue(pobiPage1, pobiPage2)
+        );
+        int crongScore = Math.max(
+                getPagePlusValue(crongPage1, crongPage2),
+                getPageMultiValue(crongPage1, crongPage2)
+        );
 
-        if (pobiScore > crongScore) answer = 1;
-        else if (pobiScore < crongScore) answer = -1;
-        else answer = 0;
+        if (pobiScore > crongScore) answer = pobiWin;
+        else if (pobiScore < crongScore) answer = crongWin;
+        else answer = draw;
 
         return answer;
     }
