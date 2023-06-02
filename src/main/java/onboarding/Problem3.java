@@ -12,7 +12,7 @@ public class Problem3 {
         return answer;
     }
 
-    public static int count369(int num) {
+    private static int count369(int num) {
         int count = 0;
         while (num > 0) {
             int lastNum = num % 10;
