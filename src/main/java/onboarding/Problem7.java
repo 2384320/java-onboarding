@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Problem7 {
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
-        List<String> answer;
         HashMap<String, Integer> friendAlgorithmScore = new HashMap<>();
         HashMap<String, List<String>> friendRelation = new HashMap<>();
         PriorityQueue<String[]> friendAlgorithmScoreSortQueue = new PriorityQueue<>((o1, o2) -> {
@@ -25,8 +24,7 @@ public class Problem7 {
             friendAlgorithmScoreSortQueue.offer(new String[]{friend, Integer.toString(friendAlgorithmScore.get(friend))});
         }
 
-        answer = friendAlgorithmScoreSelect(friendAlgorithmScoreSortQueue);
-        return answer;
+        return friendAlgorithmScoreSelect(friendAlgorithmScoreSortQueue);
     }
 
     private static List<String> friendAlgorithmScoreSelect(
