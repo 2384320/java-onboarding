@@ -28,7 +28,7 @@ class Problem1 {
     private static int getWinner(int pobiScore, int crongScore) {
         if (pobiScore > crongScore) return pobiWin;
         else if (pobiScore < crongScore) return crongWin;
-        else return draw;
+        return draw;
     }
 
     private static int getBiggerScore(int page1, int page2) {
