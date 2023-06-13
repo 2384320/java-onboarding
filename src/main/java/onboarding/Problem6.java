@@ -12,10 +12,7 @@ public class Problem6 {
         }
 
         for (String duplicatePart : duplicateWordMap.keySet()) {
-            if (!isDuplicatePart(duplicateWordMap.get(duplicatePart))) continue;
-            for (List<String> form : forms) {
-                if (isDuplicateNickname(form.get(1), duplicatePart)) answer.add(form.get(0));
-            }
+            searchDuplicate(duplicatePart, duplicateWordMap, forms, answer);
         }
         Collections.sort(answer);
 
@@ -23,31 +20,39 @@ public class Problem6 {
     }
 
     private static boolean isDuplicateNickname(String nickname, String duplicatePart) {
-        // 닉네임이 부분 문자열을 포함한다면 true
         return nickname.contains(duplicatePart);
     }
 
     private static boolean isDuplicatePart(int duplicateCount) {
-        // 부분 문자열 중복 숫자가 1 초과라면 true 반환
         return duplicateCount > 1;
+    }
+
+    private static void searchDuplicate(
+            String duplicatePart,
+            HashMap<String, Integer> duplicateWordMap,
+            List<List<String>> forms,
+            List<String> answer
+    ) {
+        if (!isDuplicatePart(duplicateWordMap.get(duplicatePart))) return;
+
+        for (List<String> form : forms) {
+            if (isDuplicateNickname(form.get(1), duplicatePart)) answer.add(form.get(0));
+        }
     }
 
     private static void saveDuplicateWord(
             String nickname,
-            HashMap<String, Integer> duplicateWordMap
+            HashMap<String, Integer> duplicateWordMap,
+            int index
     ) {
-        // 닉네임을 두 글자씩 나눠 부분 문자열 생성
-        // 부분 문자열은 중복 숫자와 함께 duplicateWordMap에 저장
-        for (int i = 0; i < nickname.length() - 1; i++) {
-            String duplicatePart = nickname.substring(i, i+2);
-            duplicateWordMap.put(
-                    duplicatePart,
-                    duplicateWordMap.getOrDefault(
-                            duplicatePart,
-                            0
-                    ) + 1
-            );
-        }
+        String duplicatePart = nickname.substring(index, index + 2);
+        duplicateWordMap.put(
+                duplicatePart,
+                duplicateWordMap.getOrDefault(
+                        duplicatePart,
+                        0
+                ) + 1
+        );
     }
 
     private static void getDuplicateWord(
@@ -55,6 +60,9 @@ public class Problem6 {
             HashMap<String, Integer> duplicateWordMap
     ) {
         String nickname = form.get(1);
-        saveDuplicateWord(nickname, duplicateWordMap);
+
+        for (int i = 0; i < nickname.length() - 1; i++) {
+            saveDuplicateWord(nickname, duplicateWordMap, i);
+        }
     }
 }
