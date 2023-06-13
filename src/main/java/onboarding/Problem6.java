@@ -7,20 +7,13 @@ public class Problem6 {
         List<String> answer = new ArrayList<>();
         HashMap<String, Integer> duplicateWordMap = new HashMap<>();
 
-        // 모든 닉네임에서의 부분 문자열을 구함.
-        // 중복 부분 문자열이 나온다면 나온 수 만큼 카운팅
         for (List<String> form : forms) {
-            String nickname = form.get(1);
-            getDuplicateWord(nickname, duplicateWordMap);
+            getDuplicateWord(form, duplicateWordMap);
         }
 
-        // 부분 문자열을 기준으로 탐색 시작
         for (String duplicatePart : duplicateWordMap.keySet()) {
-            // 부분 문자열이 중복되었는지를 판단하며, 중복되지 않았다면 패스
             if (!isDuplicatePart(duplicateWordMap.get(duplicatePart))) continue;
-            //
             for (List<String> form : forms) {
-                // 닉네임이 해당 문자열을 포함한다면, 이메일을 리스트에 저장
                 if (isDuplicateNickname(form.get(1), duplicatePart)) answer.add(form.get(0));
             }
         }
@@ -39,7 +32,7 @@ public class Problem6 {
         return duplicateCount > 1;
     }
 
-    private static void getDuplicateWord(
+    private static void saveDuplicateWord(
             String nickname,
             HashMap<String, Integer> duplicateWordMap
     ) {
@@ -55,5 +48,13 @@ public class Problem6 {
                     ) + 1
             );
         }
+    }
+
+    private static void getDuplicateWord(
+            List<String> form,
+            HashMap<String, Integer> duplicateWordMap
+    ) {
+        String nickname = form.get(1);
+        saveDuplicateWord(nickname, duplicateWordMap);
     }
 }
