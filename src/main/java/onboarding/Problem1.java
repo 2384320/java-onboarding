@@ -11,16 +11,16 @@ class Problem1 {
     private static final int LAST_PAGE = 400;
 
     public static int solution(List<Integer> pobi, List<Integer> crong) {
-        int pobiPage1 = pobi.get(0);
-        int pobiPage2 = pobi.get(1);
-        int crongPage1 = crong.get(0);
-        int crongPage2 = crong.get(1);
+        int pobiLeftPage = pobi.get(0);
+        int pobiRightPage = pobi.get(1);
+        int crongLeftPage = crong.get(0);
+        int crongRightPage = crong.get(1);
 
-        if (checkPage(pobiPage1, pobiPage2)
-                || checkPage(crongPage1, crongPage2)) return EXCEPTION;
+        if (checkPage(pobiLeftPage, pobiRightPage)
+                || checkPage(crongLeftPage, crongRightPage)) return EXCEPTION;
 
-        int pobiScore = getBiggerScore(pobiPage1, pobiPage2);
-        int crongScore = getBiggerScore(crongPage1, crongPage2);
+        int pobiScore = getBiggerScore(pobiLeftPage, pobiRightPage);
+        int crongScore = getBiggerScore(crongLeftPage, crongRightPage);
 
         return getWinner(pobiScore, crongScore);
     }
@@ -31,9 +31,9 @@ class Problem1 {
         return DRAW;
     }
 
-    private static int getBiggerScore(int page1, int page2) {
-        int plusValue = getPagePlusValue(page1) + getPagePlusValue(page2);
-        int multiValue = getPageMultiValue(page1) * getPageMultiValue(page2);
+    private static int getBiggerScore(int leftPage, int rightPage) {
+        int plusValue = getPagePlusValue(leftPage) + getPagePlusValue(rightPage);
+        int multiValue = getPageMultiValue(leftPage) * getPageMultiValue(rightPage);
 
         return Math.max(plusValue, multiValue);
     }
@@ -58,9 +58,9 @@ class Problem1 {
         return multiPage;
     }
 
-    private static boolean checkPage(int page1, int page2) {
-        if (page1 % 2 == 0 || page2 % 2 != 0) return true;
-        if (page2 - page1 != 1) return true;
-        return page1 < FIRST_PAGE || page2 > LAST_PAGE;
+    private static boolean checkPage(int leftPage, int rightPage) {
+        if (leftPage % 2 == 0 || rightPage % 2 != 0) return true;
+        if (rightPage - leftPage != 1) return true;
+        return leftPage < FIRST_PAGE || rightPage > LAST_PAGE;
     }
 }
